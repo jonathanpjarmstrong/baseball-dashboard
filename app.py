@@ -467,7 +467,8 @@ TEAM_DIVISION = "13U"
 TEAM_LOCATION = "Kingsville, Ontario"
 TEAM_PRIMARY = "#124297"
 TEAM_LIGHT = "#3B7DDD"
-TEAM_DARK = "#111827"
+TEAM_BG = "#FFFFFF"
+TEAM_LIGHT_BG = "#F0F4FA"
 
 st.set_page_config(
     page_title=f"{TEAM_NAME} {TEAM_DIVISION} Dashboard",
@@ -478,28 +479,27 @@ st.set_page_config(
 st.markdown(f"""
 <style>
     .stApp > header {{
-        background-color: {TEAM_DARK};
+        background-color: {TEAM_BG};
     }}
     div[data-testid="stMetric"] {{
-        background-color: {TEAM_DARK};
+        background-color: {TEAM_LIGHT_BG};
         border: 1px solid {TEAM_PRIMARY};
         border-radius: 8px;
         padding: 12px 16px;
     }}
     div[data-testid="stMetric"] label {{
-        color: {TEAM_LIGHT} !important;
+        color: {TEAM_PRIMARY} !important;
     }}
     button[data-baseweb="tab"] {{
         font-weight: 600;
     }}
     .knights-banner {{
-        background: linear-gradient(135deg, #050A15 0%, {TEAM_DARK} 40%, {TEAM_PRIMARY}22 100%);
-        border: 2px solid {TEAM_PRIMARY};
+        background: {TEAM_BG};
+        border: 3px solid {TEAM_PRIMARY};
         border-radius: 12px;
         padding: 28px 32px;
         margin-bottom: 24px;
         text-align: center;
-        position: relative;
     }}
     .knights-banner .banner-content {{
         display: inline-block;
@@ -508,10 +508,9 @@ st.markdown(f"""
         height: 80px;
         vertical-align: middle;
         margin-right: 16px;
-        filter: drop-shadow(0 0 8px rgba(18, 66, 151, 0.5));
     }}
     .knights-banner h1 {{
-        color: #FFFFFF;
+        color: {TEAM_PRIMARY};
         font-size: 2.4em;
         margin: 0;
         letter-spacing: 2px;
@@ -519,22 +518,18 @@ st.markdown(f"""
         display: inline;
         vertical-align: middle;
     }}
-    .knights-banner h1 .blue {{
-        color: {TEAM_LIGHT};
-    }}
     .knights-banner .subtitle {{
-        color: #C8D6E8;
+        color: #333;
         font-size: 1.1em;
         margin-top: 8px;
-        opacity: 0.9;
     }}
     .knights-banner .rules {{
-        color: #7B8FA8;
+        color: #666;
         font-size: 0.85em;
         margin-top: 8px;
     }}
     h2 {{
-        color: {TEAM_LIGHT} !important;
+        color: {TEAM_PRIMARY} !important;
         border-bottom: 2px solid {TEAM_PRIMARY};
         padding-bottom: 6px;
     }}
@@ -544,9 +539,9 @@ st.markdown(f"""
     .knights-footer {{
         text-align: center;
         padding: 16px;
-        color: #4A5568;
+        color: #999;
         font-size: 0.8em;
-        border-top: 1px solid #1E2A3A;
+        border-top: 1px solid #DDD;
         margin-top: 40px;
     }}
     .knights-footer::after {{
@@ -555,7 +550,7 @@ st.markdown(f"""
         bottom: 12px;
         right: 18px;
         font-size: 1.4em;
-        opacity: 0.07;
+        opacity: 0.06;
         transition: opacity 0.3s, transform 0.3s;
         cursor: default;
         z-index: 999;
@@ -580,7 +575,7 @@ st.markdown(f"""
 <div class="knights-banner">
     <div class="banner-content">
         {_logo_html}
-        <h1><span class="blue">{TEAM_NAME}</span></h1>
+        <h1>{TEAM_NAME}</h1>
     </div>
     <div class="subtitle">{TEAM_DIVISION} Team Manager Dashboard</div>
     <div class="rules">OBA / Baseball Canada Rules &nbsp;&bull;&nbsp; 75ft bases &nbsp;&bull;&nbsp; 50ft mound &nbsp;&bull;&nbsp; 7 innings &nbsp;&bull;&nbsp; 85 pitch max</div>
