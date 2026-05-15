@@ -569,7 +569,7 @@ if os.path.exists(_logo_path):
     with open(_logo_path, "rb") as f:
         _logo_b64 = base64.b64encode(f.read()).decode()
 
-_logo_html = f'<img src="data:image/png;base64,{{_logo_b64}}" class="logo-img" alt="Knights">' if _logo_b64 else ""
+_logo_html = f'<img src="data:image/png;base64,{_logo_b64}" class="logo-img" alt="Knights">' if _logo_b64 else ""
 
 st.markdown(f"""
 <div class="knights-banner">
