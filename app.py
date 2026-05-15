@@ -462,17 +462,100 @@ def pitcher_status(check_date):
 # STREAMLIT APP
 # ─────────────────────────────────────────────────────────────
 
-st.set_page_config(page_title="13U Team Dashboard", page_icon="⚾", layout="wide")
+TEAM_NAME = "Kingsville Knights"
+TEAM_DIVISION = "13U"
+TEAM_LOCATION = "Kingsville, Ontario"
+TEAM_PRIMARY = "#C8A415"
+TEAM_DARK = "#1A1D23"
 
-st.title("⚾ 13U Team Manager Dashboard")
-st.caption("OBA / Baseball Canada Rules  —  75ft bases, 50ft mound, 7 innings, 85 pitch max")
+st.set_page_config(
+    page_title=f"{TEAM_NAME} {TEAM_DIVISION} Dashboard",
+    page_icon="⚔️",
+    layout="wide",
+)
 
-tab1, tab2, tab3 = st.tabs(["Practice Architect", "Lineup & Positions", "Pitch Count"])
+st.markdown(f"""
+<style>
+    /* Knights gold accent bar at top */
+    .stApp > header {{
+        background-color: {TEAM_DARK};
+    }}
+    div[data-testid="stMetric"] {{
+        background-color: {TEAM_DARK};
+        border: 1px solid {TEAM_PRIMARY};
+        border-radius: 8px;
+        padding: 12px 16px;
+    }}
+    div[data-testid="stMetric"] label {{
+        color: {TEAM_PRIMARY} !important;
+    }}
+    /* Tab styling */
+    button[data-baseweb="tab"] {{
+        font-weight: 600;
+    }}
+    /* Header banner */
+    .knights-banner {{
+        background: linear-gradient(135deg, #000000 0%, {TEAM_DARK} 50%, #000000 100%);
+        border: 2px solid {TEAM_PRIMARY};
+        border-radius: 12px;
+        padding: 24px 32px;
+        margin-bottom: 24px;
+        text-align: center;
+    }}
+    .knights-banner h1 {{
+        color: {TEAM_PRIMARY};
+        font-size: 2.4em;
+        margin: 0;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }}
+    .knights-banner .subtitle {{
+        color: #FAFAFA;
+        font-size: 1.1em;
+        margin-top: 4px;
+        opacity: 0.85;
+    }}
+    .knights-banner .rules {{
+        color: #999;
+        font-size: 0.85em;
+        margin-top: 8px;
+    }}
+    /* Section headers */
+    h2 {{
+        color: {TEAM_PRIMARY} !important;
+        border-bottom: 2px solid {TEAM_PRIMARY};
+        padding-bottom: 6px;
+    }}
+    /* Expander headers */
+    details summary span {{
+        font-weight: 600;
+    }}
+    /* Footer */
+    .knights-footer {{
+        text-align: center;
+        padding: 16px;
+        color: #666;
+        font-size: 0.8em;
+        border-top: 1px solid #333;
+        margin-top: 40px;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div class="knights-banner">
+    <h1>⚔️ {TEAM_NAME} ⚔️</h1>
+    <div class="subtitle">{TEAM_DIVISION} Team Manager Dashboard</div>
+    <div class="rules">OBA / Baseball Canada Rules &nbsp;&bull;&nbsp; 75ft bases &nbsp;&bull;&nbsp; 50ft mound &nbsp;&bull;&nbsp; 7 innings &nbsp;&bull;&nbsp; 85 pitch max</div>
+</div>
+""", unsafe_allow_html=True)
+
+tab1, tab2, tab3 = st.tabs(["⚔️ Practice Architect", "⚔️ Lineup & Positions", "⚔️ Pitch Count"])
 
 # ── TAB 1: PRACTICE ARCHITECT ──────────────────────────────
 
 with tab1:
-    st.header("Practice Plan Generator")
+    st.header("Knights Practice Plan Generator")
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -504,13 +587,13 @@ with tab1:
 # ── TAB 2: LINEUP & POSITIONS ──────────────────────────────
 
 with tab2:
-    st.header("Developmental Lineup & Position Tracker")
+    st.header("Knights Lineup & Position Tracker")
 
     roster_df = _load_roster()
     has_roster = not roster_df.empty
 
     with st.expander("Manage Roster", expanded=not has_roster):
-        st.markdown("Enter player names, one per line.")
+        st.markdown("Enter Knights player names, one per line.")
         default_names = "\n".join(roster_df["Player"].tolist()) if has_roster else "Player 1\nPlayer 2\nPlayer 3"
         names_input = st.text_area("Players", value=default_names, height=200, key="roster_input")
 
@@ -614,7 +697,7 @@ with tab2:
 # ── TAB 3: PITCH COUNT ─────────────────────────────────────
 
 with tab3:
-    st.header("Pitch Count & Recovery Monitor")
+    st.header("Knights Pitch Count & Recovery Monitor")
 
     col_rules, col_input = st.columns([1, 2])
 
@@ -680,3 +763,13 @@ with tab3:
         st.divider()
         st.subheader("Full Pitch Log")
         st.dataframe(pitch_log.sort_values("Date", ascending=False), use_container_width=True, hide_index=True)
+
+# ── FOOTER ────────────────────────────────────────────────────
+
+st.markdown(f"""
+<div class="knights-footer">
+    ⚔️ {TEAM_NAME} &nbsp;&bull;&nbsp; {TEAM_LOCATION} &nbsp;&bull;&nbsp; {TEAM_DIVISION} OBA
+    <br>
+    Built for coaches, by coaches. All rules per Baseball Canada Section 4.4.
+</div>
+""", unsafe_allow_html=True)
