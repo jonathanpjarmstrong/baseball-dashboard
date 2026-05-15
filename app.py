@@ -465,8 +465,9 @@ def pitcher_status(check_date):
 TEAM_NAME = "Kingsville Knights"
 TEAM_DIVISION = "13U"
 TEAM_LOCATION = "Kingsville, Ontario"
-TEAM_PRIMARY = "#C8A415"
-TEAM_DARK = "#1A1D23"
+TEAM_PRIMARY = "#124297"
+TEAM_LIGHT = "#3B7DDD"
+TEAM_DARK = "#111827"
 
 st.set_page_config(
     page_title=f"{TEAM_NAME} {TEAM_DIVISION} Dashboard",
@@ -476,7 +477,6 @@ st.set_page_config(
 
 st.markdown(f"""
 <style>
-    /* Knights gold accent bar at top */
     .stApp > header {{
         background-color: {TEAM_DARK};
     }}
@@ -487,59 +487,68 @@ st.markdown(f"""
         padding: 12px 16px;
     }}
     div[data-testid="stMetric"] label {{
-        color: {TEAM_PRIMARY} !important;
+        color: {TEAM_LIGHT} !important;
     }}
-    /* Tab styling */
     button[data-baseweb="tab"] {{
         font-weight: 600;
     }}
-    /* Header banner */
     .knights-banner {{
-        background: linear-gradient(135deg, #000000 0%, {TEAM_DARK} 50%, #000000 100%);
+        background: linear-gradient(135deg, #050A15 0%, {TEAM_DARK} 40%, {TEAM_PRIMARY}22 100%);
         border: 2px solid {TEAM_PRIMARY};
         border-radius: 12px;
-        padding: 24px 32px;
+        padding: 28px 32px;
         margin-bottom: 24px;
         text-align: center;
+        position: relative;
+    }}
+    .knights-banner .banner-content {{
+        display: inline-block;
+    }}
+    .knights-banner .logo-img {{
+        height: 80px;
+        vertical-align: middle;
+        margin-right: 16px;
+        filter: drop-shadow(0 0 8px rgba(18, 66, 151, 0.5));
     }}
     .knights-banner h1 {{
-        color: {TEAM_PRIMARY};
+        color: #FFFFFF;
         font-size: 2.4em;
         margin: 0;
         letter-spacing: 2px;
         text-transform: uppercase;
+        display: inline;
+        vertical-align: middle;
+    }}
+    .knights-banner h1 .blue {{
+        color: {TEAM_LIGHT};
     }}
     .knights-banner .subtitle {{
-        color: #FAFAFA;
+        color: #C8D6E8;
         font-size: 1.1em;
-        margin-top: 4px;
-        opacity: 0.85;
+        margin-top: 8px;
+        opacity: 0.9;
     }}
     .knights-banner .rules {{
-        color: #999;
+        color: #7B8FA8;
         font-size: 0.85em;
         margin-top: 8px;
     }}
-    /* Section headers */
     h2 {{
-        color: {TEAM_PRIMARY} !important;
+        color: {TEAM_LIGHT} !important;
         border-bottom: 2px solid {TEAM_PRIMARY};
         padding-bottom: 6px;
     }}
-    /* Expander headers */
     details summary span {{
         font-weight: 600;
     }}
-    /* Footer */
     .knights-footer {{
         text-align: center;
         padding: 16px;
-        color: #666;
+        color: #4A5568;
         font-size: 0.8em;
-        border-top: 1px solid #333;
+        border-top: 1px solid #1E2A3A;
         margin-top: 40px;
     }}
-    /* Equipment Manager */
     .knights-footer::after {{
         content: "🐱";
         position: fixed;
@@ -558,9 +567,21 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
+import base64
+_logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+_logo_b64 = ""
+if os.path.exists(_logo_path):
+    with open(_logo_path, "rb") as f:
+        _logo_b64 = base64.b64encode(f.read()).decode()
+
+_logo_html = f'<img src="data:image/png;base64,{{_logo_b64}}" class="logo-img" alt="Knights">' if _logo_b64 else ""
+
 st.markdown(f"""
 <div class="knights-banner">
-    <h1>⚔️ {TEAM_NAME} ⚔️</h1>
+    <div class="banner-content">
+        {_logo_html}
+        <h1><span class="blue">{TEAM_NAME}</span></h1>
+    </div>
     <div class="subtitle">{TEAM_DIVISION} Team Manager Dashboard</div>
     <div class="rules">OBA / Baseball Canada Rules &nbsp;&bull;&nbsp; 75ft bases &nbsp;&bull;&nbsp; 50ft mound &nbsp;&bull;&nbsp; 7 innings &nbsp;&bull;&nbsp; 85 pitch max</div>
 </div>
