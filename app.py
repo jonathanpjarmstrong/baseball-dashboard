@@ -539,6 +539,22 @@ st.markdown(f"""
         border-top: 1px solid #333;
         margin-top: 40px;
     }}
+    /* Equipment Manager */
+    .knights-footer::after {{
+        content: "🐱";
+        position: fixed;
+        bottom: 12px;
+        right: 18px;
+        font-size: 1.4em;
+        opacity: 0.07;
+        transition: opacity 0.3s, transform 0.3s;
+        cursor: default;
+        z-index: 999;
+    }}
+    .knights-footer:hover::after {{
+        opacity: 0.85;
+        transform: scale(1.4);
+    }}
 </style>
 """, unsafe_allow_html=True)
 
